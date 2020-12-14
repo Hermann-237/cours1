@@ -1,5 +1,5 @@
-import "../styles/main.scss";
-import "babel-polyfill";
+/* import "../styles/main.scss"; */
+/* import "babel-polyfill"; */
 const modal = document.getElementById("myModal");
 function retournePromesse() {
   return new Promise((resolve) => {
