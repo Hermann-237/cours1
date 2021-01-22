@@ -9,7 +9,7 @@ const options = {
     method: "get",
 };
 
-// with axios.interceptors.request.use() you can run code between the call of axios
+// with ax,ios.interceptors.request.use() you can run code between the call of axios
 // and the actual request that gets send out to the url
 //
 // Request => Interceptor => Response

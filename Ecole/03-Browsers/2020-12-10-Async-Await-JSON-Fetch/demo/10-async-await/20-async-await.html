@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>async/await</title>
+</head>
+<body>
+
+    <h1>async/await</h1>
+
+    <pre id="target"></pre>
+
+</body>
+<script>
+    let element = document.getElementById("target");
+
+    // async functions return always a promise
+    async function f(param) {
+        console.log("f("+param+") called");
+        return param; // so this value will be wrapped in a Promise - remember the "flattening" behaviour
+    }
+    // equivalent function to the above:
+    async function f2(param) {
+        console.log("f("+param+") called");
+        return Promise.resolve(param);
+    }
+
+    // now with additional error-detection and 
+    // return in that case returning a rejected promise
+    async function f3(param) {
+        if (param == 1) return Promise.reject("because the parmeter is " + param);
+
+        console.log("f("+param+") called");
+        return Promise.resolve(param);
+    }
+    /**/
+
+    /*
+    f(2)
+    .then(v => element.append("The Promise returned by the function ("+v+") settled, then the CALLBACK executed.\n"))
+    .catch( v => console.error("function failed:", v) )
+    ;
+    // demonstrate the non-blocking/asynchronous behaviour of the function f():
+    element.append("Is this executed later than the CALLBACK in f(1).then(CALLBACK)?\n=> No, before. \n");
+
+    element.append("______________________\n");
+    console.log("demo for await:");
+
+    async function waitForPromise() {
+        console.log("before await f(2)");
+        let promisedValue = await f(2);
+        console.log("after await f(2)");
+        element.append('In order to wait for a promise to be returned, "await" is used.' + "\n");
+    }
+
+    waitForPromise();
+    /**/
+
+    // ADVANCED TOPIC
+    async function awaitingDemo() {
+
+        element.append("___ delayed execution ___\n");
+        console.log("___ delayed execution ___");
+        // demonstrating delayed execution
+        async function delayed(value) {
+            return new Promise( (resolve, reject) => {
+                // the callback is executed after a timeout
+                setTimeout( () => {
+                    console.log("executed delayed("+value+")"); 
+                    resolve(value);
+                }, 3000 ); // the callback must return a settled promise
+            });
+        }
+
+        /**/
+        console.log("before delayed(1)");
+        delayed(1)
+        .then( (value) => element.append("executed delayed.then()\n\n") );
+        console.log("after delayed(1)");
+        /**/
+
+        /**/
+        console.log("before delayed(2)");
+        let awaitedValue = await delayed(2);
+        console.log("awaitedValue", awaitedValue);
+        console.log("after delayed(2)");        
+        /**/
+    }
+
+    awaitingDemo();
+    /**/
+
+
+</script>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>jQuery - ajax</title>
+	
+	<link rel="stylesheet" href="style.css">
+	<script src="jquery-3.5.1.js"></script>
+</head>
+<body>
+	<h1>jQuery - ajax</h1>
+	<a href="https://learn.jquery.com/about-jquery/how-jquery-works/">Source for this Demonstration</a>
+
+	<div id="ext1"></div>
+	<div id="ext2"></div>
+
+	<div id="footer" class="class_b">FOOTER</div>
+
+<script>
+ 
+$("div").addClass("class_a");
+$("div").addClass("class_c");
+
+// select by ID and remove the css-class "class_b"
+$("#footer").removeClass("class_b");
+
+
+// .get execute a HTTP-GET request and retrieve the response,
+// parameters:
+//   1 => URL/Resource
+//   2 => callback function to be executed once the response is received
+$.get("20a-resource.txt", function(response) {
+	// select element with ID "#ext1" 
+	// and change text-property to the response's value
+	// refer to HTMLElement with ID "ext1" 
+	// and change that element's innerText-attribute
+	$("#ext1").text(response);
+	console.log(response);
+});
+/**/
+
+// Using .load() to populate an element
+//$("#ext2").load("20b-resource.html");
+
+$("#ext2").load("20b-resource.html h2:first");
+//$("#ext2").load("20b-resource.html h2");
+//$("#ext2").load("20b-resource.html h2, em");
+//$("#ext2").load("20b-resource.html h2:nth-of-type(2)");
+
+$('#ext2').click(function(event) {
+	$('#ext2').load("20b-resource.html");
+});
+/**/
+
+</script>
+</body>
+</html>

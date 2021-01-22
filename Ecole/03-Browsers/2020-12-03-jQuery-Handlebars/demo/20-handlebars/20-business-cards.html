@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>jQuery-Demo</title>
+
+    <link rel="stylesheet" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+</head>
+<body>
+
+    <h1>Musicians</h1>
+
+    
+    <h2>Details</h2>
+    <table id="musicians"></table>
+
+    <h2>Short Musicians List</h2>
+    <div id="musiciansShort"></div>
+    
+</body>
+
+<script>
+    // compile the template
+    // in Handlebars placeholders are defined 
+    // with double curly-brackets surrounding the placeholder's name
+    let template = Handlebars.compile(
+        "<tr>"
+        + "<td>Name</td>"
+        + "<td>{{ name }}</td>"
+        + "</tr>"
+        + "<tr>"
+        + "<td>Instrument</td>"
+        + "<td>{{ instrument }}</td>"
+        + "</tr>"
+        + "<tr>"
+        + "<td>Band</td>"
+        + "<td>{{ band }}</td>"
+        + "</tr>"
+    );
+
+    // execute the compiled template and use the output
+
+    let bruce = {
+        name: "Bruce Dickinson",
+        instrument: "vocals",
+        band: "Iron Maiden"
+    };
+
+    let steve = {
+        name: "Steve Harris",
+        instrument: "bass",
+        band: "Iron Maiden"
+    };
+
+    let renderedBruce = template(bruce);
+    let renderedSteve = template(steve);
+
+    let musiciansElement = document.getElementById("musicians");
+    musiciansElement.innerHTML = renderedBruce;
+    musiciansElement.innerHTML+= renderedSteve;
+/**/
+
+<<<<<<< HEAD
+    let musicians = [bruce, steve];
+
+=======
+    // compile() will return the function used to actually 
+    // render the template with the provided object's content.
+>>>>>>> 22f698ce151ec6379e55367b77f5df74cb1f4905
+    let shortMusicians = Handlebars.compile(
+    // "#each" defines the start of the loop
+    // like "for (this of musician)"
+    // if will loop over the array provided later by the attribute "musician"
+    "{{#each musician}}"
+         //     "this" refers to the current item looped over
+         //     and hence to that items attributes can be referred to
+    +    "<p>{{ this.name }} ({{ this.band }})</p>\n"
+    +"{{/each}}" // "/each" is the end of the loop
+    );
+    
+    let musiciansShort = document.getElementById("musiciansShort");
+    // the provided object must have an attribute "musician", 
+    // since that is used in the definition of the template-function "shortMusicians"
+    // and over "musician" a loop is defined in the template, 
+    // therefore the "musician"-attribute's value must be an array.
+    musiciansShort.innerHTML = shortMusicians({musician: [bruce, steve]})
+    
+/**/
+</script>
+
+</html>
